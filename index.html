@@ -12,14 +12,14 @@
   --coffee-dark:#2C1810;--coffee-mid:#6F4E37;--coffee-light:#C8A882;
   --cream:#FDF6F0;--bg:#F5F0EB;--surface:#FFFFFF;--border:#E8E0D8;
   --text:#1a1208;--text2:#6b5c4e;--text3:#a89585;
-  --green:#E8F5E9;--green-t:#2E7D32;
+  --green:#E8F5E9;--green-t:#2E7D32;--red:#fff0f0;--red-t:#c0392b;
   --radius:12px;--radius-sm:8px;
 }
 @media(prefers-color-scheme:dark){
-  :root{--bg:#0f0a06;--surface:#1c1410;--border:#2e2018;--text:#f5ede4;--text2:#a08060;--text3:#604030;--cream:#1c1410}
+  :root{--bg:#0f0a06;--surface:#1c1410;--border:#2e2018;--text:#f5ede4;--text2:#a08060;--text3:#604030;--cream:#1c1410;--red:#2a0a0a;--red-t:#e57373}
 }
 html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg)}
-.app{max-width:430px;margin:0 auto;background:var(--surface);min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;position:relative}
+.app{max-width:430px;margin:0 auto;background:var(--surface);min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
 
 /* Topbar */
 .topbar{background:var(--coffee-dark);color:#fff;padding:env(safe-area-inset-top,14px) 16px 12px;padding-top:max(env(safe-area-inset-top),14px)}
@@ -30,21 +30,21 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sa
 
 /* Nav */
 .nav{display:flex;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:10}
-.nav-tab{flex:1;padding:10px 4px 8px;font-size:11px;text-align:center;color:var(--text3);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all 0.15s;font-family:inherit}
+.nav-tab{flex:1;padding:9px 2px 7px;font-size:10px;text-align:center;color:var(--text3);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all 0.15s;font-family:inherit;line-height:1.3}
 .nav-tab.active{color:var(--coffee-mid);border-bottom-color:var(--coffee-mid);font-weight:600}
-.nav-tab i{display:block;font-size:20px;margin-bottom:2px}
+.nav-icon{font-size:18px;display:block;margin-bottom:2px}
 
 /* Content */
-.content{flex:1;overflow-y:auto;padding:16px;padding-bottom:env(safe-area-inset-bottom,16px)}
+.content{flex:1;overflow-y:auto;padding:16px;padding-bottom:max(env(safe-area-inset-bottom),16px)}
 
 /* Cards */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:background 0.1s;-webkit-transition:background 0.1s}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:background 0.1s}
 .card:active{background:var(--cream)}
 .card-row{display:flex;align-items:center;gap:12px}
 .bean-avatar{width:40px;height:40px;border-radius:50%;background:var(--coffee-light);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;flex-shrink:0;color:var(--coffee-dark)}
+.cafe-avatar{width:40px;height:40px;border-radius:10px;background:#e8f4f8;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .card-title{font-size:14px;font-weight:600;color:var(--text)}
 .card-sub{font-size:12px;color:var(--text2);margin-top:2px}
-.rebuy-badge{margin-left:auto;font-size:20px}
 
 /* Stars */
 .stars{color:var(--coffee-light);font-size:14px;letter-spacing:1px}
@@ -53,7 +53,7 @@ html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sa
 /* Section label */
 .section-label{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:0.8px;text-transform:uppercase;margin:18px 0 10px}
 
-/* Chip / tag */
+/* Chip */
 .chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:20px;background:var(--cream);color:var(--text2);border:1px solid var(--border)}
 
 /* Form */
@@ -77,18 +77,23 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .star-btn{font-size:26px;cursor:pointer;color:var(--coffee-light);opacity:0.25;transition:opacity 0.1s;background:none;border:none;padding:2px;line-height:1}
 .star-btn.on{opacity:1}
 
-/* Primary button */
+/* Buttons */
 .btn-primary{width:100%;padding:14px;background:var(--coffee-dark);color:#fff;border:none;border-radius:var(--radius);font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;font-family:inherit;letter-spacing:-0.2px;transition:background 0.15s}
 .btn-primary:active{background:#1a0f08}
 .btn-secondary{background:var(--cream);color:var(--text);border:1px solid var(--border)}
+.btn-danger{background:var(--red);color:var(--red-t);border:1px solid #ffcccc}
 
 /* Log item */
-.log-item{border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.log-item{border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;position:relative}
 .log-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .log-name{font-size:14px;font-weight:600;color:var(--text)}
 .log-date{font-size:11px;color:var(--text3);white-space:nowrap}
 .log-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
 .log-taste{font-size:13px;color:var(--text2);margin-top:8px;line-height:1.5;font-style:italic}
+
+/* Delete button */
+.del-btn{position:absolute;top:10px;right:10px;background:none;border:none;font-size:16px;cursor:pointer;color:var(--text3);padding:4px 6px;border-radius:6px;opacity:0.5;transition:opacity 0.15s}
+.del-btn:hover{opacity:1;background:var(--red);color:var(--red-t)}
 
 /* Stat */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
@@ -103,39 +108,37 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .prog-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
 .prog-fill{height:100%;background:var(--coffee-light);border-radius:3px;transition:width 0.6s ease}
 
-/* Info box */
+/* Info/hint box */
 .info-box{background:var(--cream);border-left:3px solid var(--coffee-light);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:12px 14px;font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:16px}
 .info-box strong{color:var(--text);font-weight:600}
+.autofill-hint{background:var(--green);border:1px solid #A5D6A7;border-radius:var(--radius-sm);padding:10px 13px;font-size:12px;color:var(--green-t);margin-bottom:16px;display:flex;align-items:center;gap:8px}
 
 /* Code block */
 .code-block{background:#1a1208;color:#c8a882;font-size:11px;padding:12px;border-radius:var(--radius-sm);font-family:'Courier New',monospace;line-height:1.7;overflow-x:auto;margin:10px 0;white-space:pre}
 
-/* Hero brew button */
-.hero-btn{width:100%;padding:18px 16px;background:var(--coffee-dark);color:#fff;border:none;border-radius:var(--radius);font-size:17px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:12px;margin-bottom:4px;font-family:inherit;text-align:left}
+/* Hero button */
+.hero-btn{width:100%;padding:18px 16px;background:var(--coffee-dark);color:#fff;border:none;border-radius:var(--radius);font-size:17px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:12px;margin-bottom:8px;font-family:inherit;text-align:left}
 .hero-btn-sub{font-size:12px;opacity:0.55;font-weight:400;margin-top:2px}
 .hero-icon{font-size:28px;background:rgba(255,255,255,0.1);width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
-/* Recent recipe auto-fill hint */
-.autofill-hint{background:var(--green);border:1px solid #A5D6A7;border-radius:var(--radius-sm);padding:10px 13px;font-size:12px;color:var(--green-t);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+/* Page header */
+.page-header{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--text2);padding:0 4px}
+.page-title{font-size:17px;font-weight:600;color:var(--text)}
+
+/* Conn status */
+.conn-status{display:flex;align-items:center;gap:6px;font-size:12px;padding:8px 12px;border-radius:var(--radius-sm);border:1px solid var(--border);color:var(--text2);margin-bottom:12px}
+.conn-dot{width:8px;height:8px;border-radius:50%;background:#ccc;flex-shrink:0}
+.conn-dot.connected{background:#4CAF50}
+
+/* Empty state */
+.empty{text-align:center;padding:40px 20px;color:var(--text3)}
+.empty-icon{font-size:40px;margin-bottom:12px}
 
 /* Toast */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--coffee-dark);color:#fff;padding:11px 20px;border-radius:30px;font-size:13px;font-weight:500;display:none;z-index:100;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.25)}
 .toast.show{display:block;animation:toastAnim 2.8s forwards}
 @keyframes toastAnim{0%{opacity:0;transform:translateX(-50%) translateY(10px)}12%{opacity:1;transform:translateX(-50%) translateY(0)}80%{opacity:1}100%{opacity:0;transform:translateX(-50%) translateY(-4px)}}
-
-/* Spinner */
-.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* Connection status */
-.conn-status{display:flex;align-items:center;gap:6px;font-size:12px;padding:8px 12px;border-radius:var(--radius-sm);border:1px solid var(--border);color:var(--text2)}
-.conn-dot{width:8px;height:8px;border-radius:50%;background:#ccc;flex-shrink:0}
-.conn-dot.connected{background:#4CAF50}
-.conn-dot.error{background:#f44336}
-
-/* Empty state */
-.empty{text-align:center;padding:40px 20px;color:var(--text3)}
-.empty-icon{font-size:40px;margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -151,11 +154,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 
   <nav class="nav" role="navigation">
-    <button class="nav-tab active" onclick="showTab('home')" id="tab-home">🏠<br>홈</button>
-    <button class="nav-tab" onclick="showTab('beans')" id="tab-beans">🫘<br>원두</button>
-    <button class="nav-tab" onclick="showTab('brew')" id="tab-brew">➕<br>추출</button>
-    <button class="nav-tab" onclick="showTab('logs')" id="tab-logs">📋<br>기록</button>
-    <button class="nav-tab" onclick="showTab('stats')" id="tab-stats">📊<br>통계</button>
+    <button class="nav-tab active" onclick="showTab('home')" id="tab-home"><span class="nav-icon">🏠</span>홈</button>
+    <button class="nav-tab" onclick="showTab('beans')" id="tab-beans"><span class="nav-icon">🫘</span>원두</button>
+    <button class="nav-tab" onclick="showTab('brew')" id="tab-brew"><span class="nav-icon">➕</span>추출</button>
+    <button class="nav-tab" onclick="showTab('logs')" id="tab-logs"><span class="nav-icon">📋</span>기록</button>
+    <button class="nav-tab" onclick="showTab('cafe')" id="tab-cafe"><span class="nav-icon">🏪</span>카페</button>
+    <button class="nav-tab" onclick="showTab('stats')" id="tab-stats"><span class="nav-icon">📊</span>통계</button>
   </nav>
 
   <main class="content" id="main"></main>
@@ -171,12 +175,16 @@ const STATE = {
     {id:'B002',roastery:'프릳츠',name:'케냐 키리냐가',blend:'',origin:'케냐',variety:'SL28',process:'워시드',roastDate:'2025-05-15',buyDate:'2025-05-20',price:26000,notes:'블랙커런트, 와인',desc:'묵직한 바디감',rebuy:'○',memo:''},
   ],
   logs: JSON.parse(localStorage.getItem('coffee_logs') || 'null') || [
-    {id:'L001',date:'2025-06-10',beanId:'B001',place:'집',equipment:'Hario Switch',dripper:'Switch',grinder:'Comandante C40',grind:'24클릭',temp:91,dose:15,water:240,preTime:'45초',totalTime:'2분 30초',recipe:'',taste:'달콤하고 플로럴한 느낌',hot:'꽃향, 단맛',warm:'파인애플, 복숭아',cold:'산미 증가',next:'분쇄도 1클릭 굵게',score:4,photo:''},
-    {id:'L002',date:'2025-06-08',beanId:'B002',place:'집',equipment:'Hario Switch',dripper:'Switch',grinder:'Comandante C40',grind:'23클릭',temp:90,dose:15,water:240,preTime:'50초',totalTime:'2분 20초',recipe:'침지 1분',taste:'묵직하고 와인 같은 산미, 여운이 길다',hot:'초콜릿, 바디감',warm:'블랙커런트',cold:'복잡한 여운',next:'프리인퓨전 늘리기',score:5,photo:''},
-    {id:'L003',date:'2025-06-05',beanId:'B001',place:'집',equipment:'Hario V60',dripper:'V60',grinder:'Comandante C40',grind:'25클릭',temp:92,dose:15,water:225,preTime:'40초',totalTime:'2분 45초',recipe:'',taste:'산미 강함, 플로럴하지만 약간 날카로움',hot:'플로럴',warm:'자스민',cold:'쌉쌀',next:'물온도 낮추기',score:3,photo:''},
+    {id:'L001',date:'2025-06-10',beanId:'B001',place:'집',equipment:'Hario Switch',grinder:'Comandante C40',grind:'24클릭',temp:91,dose:15,water:240,preTime:'45초',totalTime:'2분 30초',recipe:'',taste:'달콤하고 플로럴한 느낌',hot:'꽃향, 단맛',warm:'파인애플, 복숭아',cold:'산미 증가',next:'분쇄도 1클릭 굵게',score:4,photo:''},
+    {id:'L002',date:'2025-06-08',beanId:'B002',place:'집',equipment:'Hario Switch',grinder:'Comandante C40',grind:'23클릭',temp:90,dose:15,water:240,preTime:'50초',totalTime:'2분 20초',recipe:'침지 1분',taste:'묵직하고 와인 같은 산미, 여운이 길다',hot:'초콜릿, 바디감',warm:'블랙커런트',cold:'복잡한 여운',next:'프리인퓨전 늘리기',score:5,photo:''},
+    {id:'L003',date:'2025-06-05',beanId:'B001',place:'집',equipment:'Hario V60',grinder:'Comandante C40',grind:'25클릭',temp:92,dose:15,water:225,preTime:'40초',totalTime:'2분 45초',recipe:'',taste:'산미 강함, 플로럴하지만 약간 날카로움',hot:'플로럴',warm:'자스민',cold:'쌉쌀',next:'물온도 낮추기',score:3,photo:''},
+  ],
+  cafeLogs: JSON.parse(localStorage.getItem('coffee_cafe') || 'null') || [
+    {id:'C001',date:'2025-06-09',region:'서울 성수',cafe:'블루보틀 성수',menu:'싱글오리진 드립',menuType:'핸드드립',price:9000,bean:'에티오피아 구지',origin:'에티오피아',roastery:'블루보틀',brew:'핸드드립',taste:'산뜻하고 플로럴, 깔끔한 마무리',score:4,revisit:'○',memo:''},
   ],
   currentTab: 'home',
   selectedStar: 4,
+  selectedCafeStar: 4,
   filterBean: '',
   filterEquip: '',
 };
@@ -197,9 +205,40 @@ function genId(prefix){ return prefix+(Date.now()%100000) }
 function saveLocal(){
   localStorage.setItem('coffee_beans', JSON.stringify(STATE.beans));
   localStorage.setItem('coffee_logs', JSON.stringify(STATE.logs));
+  localStorage.setItem('coffee_cafe', JSON.stringify(STATE.cafeLogs));
 }
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.className='toast show'; setTimeout(()=>t.className='toast',3000) }
 function fmt(n){ return n!=null?Number(n).toLocaleString():'—' }
+function v(id){ return document.getElementById(id)?.value?.trim()||'' }
+
+// ─── Delete ───────────────────────────────────
+function deleteLog(id){
+  if(!confirm('이 추출 기록을 삭제할까요?')) return;
+  STATE.logs = STATE.logs.filter(l=>l.id!==id);
+  saveLocal();
+  if(STATE.scriptUrl) sheetsFetch('deleteLog',{id});
+  toast('삭제됐어요');
+  showTab('logs');
+}
+function deleteBean(id){
+  const hasLogs = STATE.logs.some(l=>l.beanId===id);
+  const msg = hasLogs
+    ? '이 원두의 추출 기록도 함께 삭제될 수 있어요. 삭제할까요?'
+    : '이 원두를 삭제할까요?';
+  if(!confirm(msg)) return;
+  STATE.beans = STATE.beans.filter(b=>b.id!==id);
+  saveLocal();
+  if(STATE.scriptUrl) sheetsFetch('deleteBean',{id});
+  toast('원두가 삭제됐어요');
+  showTab('beans');
+}
+function deleteCafeLog(id){
+  if(!confirm('이 카페 기록을 삭제할까요?')) return;
+  STATE.cafeLogs = STATE.cafeLogs.filter(c=>c.id!==id);
+  saveLocal();
+  toast('삭제됐어요');
+  showTab('cafe');
+}
 
 // ─── Google Sheets API ────────────────────────
 async function sheetsFetch(action, payload={}) {
@@ -212,7 +251,6 @@ async function sheetsFetch(action, payload={}) {
     return await res.json();
   } catch(e){ return null }
 }
-
 async function syncFromSheets() {
   if(!STATE.scriptUrl) return;
   document.getElementById('sync-status').textContent = '동기화 중...';
@@ -220,6 +258,7 @@ async function syncFromSheets() {
   if(res && res.beans && res.logs) {
     STATE.beans = res.beans;
     STATE.logs = res.logs;
+    if(res.cafeLogs) STATE.cafeLogs = res.cafeLogs;
     saveLocal();
     document.getElementById('sync-status').textContent = '✓ 동기화됨';
     showTab(STATE.currentTab);
@@ -227,24 +266,23 @@ async function syncFromSheets() {
     document.getElementById('sync-status').textContent = '⚠ 연결 실패';
   }
 }
-
 async function saveLog(log) {
   STATE.logs.unshift(log);
   saveLocal();
-  if(STATE.scriptUrl) {
-    const res = await sheetsFetch('addLog', {log});
-    if(res && res.success) toast('☕ 저장 완료! (Sheets 동기화됨)');
-    else toast('☕ 로컬 저장 완료 (Sheets 연결 확인 필요)');
-  } else {
-    toast('☕ 저장 완료! (로컬)');
-  }
+  if(STATE.scriptUrl){ const r=await sheetsFetch('addLog',{log}); toast(r&&r.success?'☕ 저장 완료! (Sheets 동기화됨)':'☕ 로컬 저장 완료'); }
+  else toast('☕ 저장 완료!');
 }
-
 async function saveBean(bean) {
   STATE.beans.push(bean);
   saveLocal();
-  if(STATE.scriptUrl) await sheetsFetch('addBean', {bean});
+  if(STATE.scriptUrl) await sheetsFetch('addBean',{bean});
   toast('🫘 원두 추가 완료!');
+}
+async function saveCafeLog(log) {
+  STATE.cafeLogs.unshift(log);
+  saveLocal();
+  if(STATE.scriptUrl) await sheetsFetch('addCafeLog',{log});
+  toast('🏪 카페 기록 저장 완료!');
 }
 
 // ─── Tabs ─────────────────────────────────────
@@ -253,10 +291,10 @@ function showTab(tab) {
   document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
   const t=document.getElementById('tab-'+tab);
   if(t) t.classList.add('active');
-  const m=document.getElementById('main');
-  const renders={home:renderHome,beans:renderBeans,brew:renderBrew,logs:renderLogs,stats:renderStats,settings:renderSettings};
-  m.innerHTML = (renders[tab]||renderHome)();
-  if(tab==='brew') initBrewForm();
+  const renders={home:renderHome,beans:renderBeans,brew:renderBrew,logs:renderLogs,cafe:renderCafe,stats:renderStats,settings:renderSettings};
+  document.getElementById('main').innerHTML = (renders[tab]||renderHome)();
+  if(tab==='brew') STATE.selectedStar=4;
+  if(tab==='cafe') STATE.selectedCafeStar=4;
   if(tab==='stats') animateProgress();
 }
 
@@ -265,26 +303,39 @@ function renderHome() {
   const today = new Date().toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'short'});
   const recent = STATE.logs[0];
   const recentBean = recent ? getBean(recent.beanId) : null;
+  const recentCafe = STATE.cafeLogs[0];
   return `
   <button class="hero-btn" onclick="showTab('brew')">
     <div class="hero-icon">➕</div>
     <div>오늘의 추출 기록하기<div class="hero-btn-sub">${today} · 빠른 입력</div></div>
   </button>
+  <button class="hero-btn" onclick="showTab('cafe')" style="background:var(--coffee-mid)">
+    <div class="hero-icon">🏪</div>
+    <div>카페 방문 기록하기<div class="hero-btn-sub">카페, 메뉴, 맛 기록</div></div>
+  </button>
 
   ${recent ? `
-  <div class="section-label">가장 최근 추출</div>
-  <div class="log-item" onclick="showTab('logs')">
+  <div class="section-label">최근 추출</div>
+  <div class="log-item" onclick="showTab('logs')" style="cursor:pointer">
     <div class="log-header">
-      <div><div class="log-name">${beanName(recent.beanId)}</div><div style="font-size:12px;color:var(--text2);margin-top:2px">${recentBean?recentBean.roastery:''}</div></div>
-      <div style="text-align:right"><div class="log-date">${recent.date}</div><div class="stars" style="font-size:16px;margin-top:4px">${starsHtml(recent.score)}</div></div>
+      <div><div class="log-name">${beanName(recent.beanId)}</div><div style="font-size:11px;color:var(--text2);margin-top:2px">${recentBean?recentBean.roastery:''}</div></div>
+      <div style="text-align:right"><div class="log-date">${recent.date}</div><div class="stars" style="margin-top:4px">${starsHtml(recent.score)}</div></div>
     </div>
     <div class="log-chips">
-      <span class="chip">${recent.equipment}</span>
-      <span class="chip">${recent.temp}℃</span>
-      <span class="chip">${recent.dose}g : ${recent.water}g</span>
-      <span class="chip">${recent.grind}</span>
+      <span class="chip">${recent.equipment}</span><span class="chip">${recent.temp}℃</span>
+      <span class="chip">${recent.dose}g:${recent.water}g</span><span class="chip">${recent.grind}</span>
     </div>
     ${recent.taste?`<div class="log-taste">"${recent.taste}"</div>`:''}
+  </div>` : ''}
+
+  ${recentCafe ? `
+  <div class="section-label">최근 카페</div>
+  <div class="log-item" onclick="showTab('cafe')" style="cursor:pointer">
+    <div class="log-header">
+      <div><div class="log-name">${recentCafe.cafe}</div><div style="font-size:11px;color:var(--text2);margin-top:2px">${recentCafe.region} · ${recentCafe.menu}</div></div>
+      <div style="text-align:right"><div class="log-date">${recentCafe.date}</div><div class="stars" style="margin-top:4px">${starsHtml(recentCafe.score)}</div></div>
+    </div>
+    ${recentCafe.taste?`<div class="log-taste">"${recentCafe.taste}"</div>`:''}
   </div>` : ''}
 
   <div class="section-label">원두 보관함 (${STATE.beans.length}종)</div>
@@ -295,29 +346,30 @@ function renderHome() {
       <div style="flex:1;min-width:0">
         <div class="card-title">${b.name}</div>
         <div class="card-sub">${b.roastery} · ${b.origin}</div>
-        <div class="stars" style="margin-top:4px;font-size:13px">${starsHtml(Math.round(Number(avgScore(b.id)||0)))} <span style="font-size:11px;color:var(--text3)">${avgScore(b.id)?avgScore(b.id)+'점':''} · ${brewCount(b.id)}회</span></div>
+        <div class="stars" style="margin-top:4px;font-size:13px">${starsHtml(Math.round(Number(avgScore(b.id)||0)))} <span style="font-size:11px;color:var(--text3)">${avgScore(b.id)?avgScore(b.id)+'점 · ':''}${brewCount(b.id)}회</span></div>
       </div>
-      <div class="rebuy-badge">${b.rebuy||'—'}</div>
+      <div style="font-size:20px">${b.rebuy||''}</div>
     </div>
-  </div>`).join('')}
-  ${STATE.beans.length>3?`<div style="text-align:center;font-size:13px;color:var(--text3);padding:4px 0">+ ${STATE.beans.length-3}종 더 보기 →</div>`:''}`;
+  </div>`).join('')}`;
 }
 
 // ─── BEANS ─────────────────────────────────────
 function renderBeans() {
   return `
+  ${STATE.beans.length===0?`<div class="empty"><div class="empty-icon">🫘</div>원두가 없어요<br><span style="font-size:13px">아래 버튼으로 추가해보세요</span></div>`:''}
   ${STATE.beans.map(b=>`
-  <div class="card">
-    <div class="card-row" style="align-items:flex-start">
+  <div class="card" style="position:relative">
+    <button class="del-btn" onclick="event.stopPropagation();deleteBean('${b.id}')" aria-label="삭제">🗑</button>
+    <div class="card-row" style="align-items:flex-start;padding-right:28px">
       <div class="bean-avatar">${b.name[0]}</div>
       <div style="flex:1;min-width:0">
         <div class="card-title">${b.name}</div>
         <div class="card-sub">${b.roastery} · ${b.origin} · ${b.process}</div>
         ${b.notes?`<div style="margin-top:6px"><span class="chip">🍵 ${b.notes}</span></div>`:''}
-        <div class="stars" style="margin-top:6px;font-size:14px">${starsHtml(Math.round(Number(avgScore(b.id)||0)))} <span style="font-size:11px;color:var(--text3)">${avgScore(b.id)?avgScore(b.id)+'점 평균 · ':''} ${brewCount(b.id)}회 추출</span></div>
+        <div class="stars" style="margin-top:6px;font-size:13px">${starsHtml(Math.round(Number(avgScore(b.id)||0)))} <span style="font-size:11px;color:var(--text3)">${avgScore(b.id)?avgScore(b.id)+'점 · ':''}${brewCount(b.id)}회 추출</span></div>
         ${b.buyDate?`<div style="font-size:11px;color:var(--text3);margin-top:3px">구매일 ${b.buyDate} · ${fmt(b.price)}원</div>`:''}
       </div>
-      <div style="font-size:22px;flex-shrink:0">${b.rebuy||''}</div>
+      <div style="font-size:20px;flex-shrink:0;margin-left:4px">${b.rebuy||''}</div>
     </div>
     ${b.desc?`<div style="font-size:12px;color:var(--text2);margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">${b.desc}</div>`:''}
   </div>`).join('')}
@@ -326,157 +378,130 @@ function renderBeans() {
 
 function showAddBean() {
   document.getElementById('main').innerHTML = `
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
-    <button onclick="showTab('beans')" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--text2)">←</button>
-    <div style="font-size:17px;font-weight:600">새 원두 추가</div>
+  <div class="page-header">
+    <button class="back-btn" onclick="showTab('beans')">←</button>
+    <div class="page-title">새 원두 추가</div>
   </div>
   <div class="form-group"><label class="form-label">로스터리 <span class="req">*</span></label><input id="f-roastery" placeholder="예: 모모스커피"></div>
   <div class="form-group"><label class="form-label">원두명 <span class="req">*</span></label><input id="f-bname" placeholder="예: 에티오피아 예가체프"></div>
   <div class="form-row">
     <div class="form-group"><label class="form-label">산지</label><input id="f-origin" placeholder="에티오피아"></div>
     <div class="form-group"><label class="form-label">가공방식</label>
-      <select id="f-process"><option value="">선택</option><option>워시드</option><option>내추럴</option><option>허니</option><option>무산소</option><option>와인</option></select></div>
+      <select id="f-process"><option value="">선택</option><option>워시드</option><option>내추럴</option><option>허니</option><option>무산소</option><option>와인</option></select>
+    </div>
   </div>
   <div class="form-row">
     <div class="form-group"><label class="form-label">구매일</label><input type="date" id="f-buydate"></div>
     <div class="form-group"><label class="form-label">구매가격(원)</label><input type="number" id="f-price" placeholder="22000"></div>
   </div>
-  <div class="form-group"><label class="form-label">향미노트 (공식)</label><input id="f-notes" placeholder="파인애플, 자스민, 복숭아"></div>
-  <div class="form-group"><label class="form-label">원두 설명</label><textarea id="f-desc" placeholder="원두에 대한 설명을 적어주세요"></textarea></div>
+  <div class="form-group"><label class="form-label">향미노트</label><input id="f-notes" placeholder="파인애플, 자스민, 복숭아"></div>
+  <div class="form-group"><label class="form-label">원두 설명</label><textarea id="f-desc" placeholder="원두에 대한 설명"></textarea></div>
   <div class="form-group"><label class="form-label">재구매 의향</label>
-    <select id="f-rebuy"><option value="">선택</option><option>◎ (꼭 재구매)</option><option>○ (기회되면)</option><option>△ (보통)</option><option>✕ (재구매 안함)</option></select></div>
+    <select id="f-rebuy"><option value="">선택</option><option>◎ (꼭 재구매)</option><option>○ (기회되면)</option><option>△ (보통)</option><option>✕ (재구매 안함)</option></select>
+  </div>
   <button class="btn-primary" onclick="submitBean()">🫘 원두 저장</button>`;
 }
-
 function submitBean() {
   const r=v('f-roastery'),n=v('f-bname');
   if(!r||!n){toast('로스터리와 원두명은 필수예요');return}
   const rebuyRaw=v('f-rebuy');
-  const rebuyMark=rebuyRaw?rebuyRaw.split(' ')[0]:'';
-  saveBean({id:genId('B'),roastery:r,name:n,origin:v('f-origin'),process:v('f-process'),buyDate:v('f-buydate'),price:Number(v('f-price'))||0,notes:v('f-notes'),desc:v('f-desc'),rebuy:rebuyMark,blend:'',variety:'',roastDate:'',memo:''});
+  saveBean({id:genId('B'),roastery:r,name:n,origin:v('f-origin'),process:v('f-process'),buyDate:v('f-buydate'),price:Number(v('f-price'))||0,notes:v('f-notes'),desc:v('f-desc'),rebuy:rebuyRaw?rebuyRaw.split(' ')[0]:'',blend:'',variety:'',roastDate:'',memo:''});
   showTab('beans');
 }
 
 // ─── BREW ──────────────────────────────────────
 function renderBrew() {
   const todayStr = new Date().toISOString().slice(0,10);
-  const lastLog = STATE.logs[0];
+  const last = STATE.logs[0];
   return `
-  ${lastLog?`<div class="autofill-hint">✓ <span>이전 레시피 자동 불러옴 — 수정 후 저장하세요</span></div>`:''}
-
+  ${last?`<div class="autofill-hint">✓ <span>이전 레시피 자동 불러옴 — 수정 후 저장하세요</span></div>`:''}
   <div class="form-group">
     <label class="form-label">원두 선택 <span class="req">*</span></label>
-    <select id="f-bean" onchange="onBeanChange()">
+    <select id="f-bean">
       <option value="">선택하세요</option>
-      ${STATE.beans.map(b=>`<option value="${b.id}" ${lastLog&&lastLog.beanId===b.id?'selected':''}>${b.name} (${b.roastery})</option>`).join('')}
+      ${STATE.beans.map(b=>`<option value="${b.id}" ${last&&last.beanId===b.id?'selected':''}>${b.name} (${b.roastery})</option>`).join('')}
     </select>
   </div>
-
   <div class="form-row">
     <div class="form-group"><label class="form-label">날짜</label><input type="date" id="f-date" value="${todayStr}"></div>
     <div class="form-group"><label class="form-label">장소</label>
       <select id="f-place"><option>집</option><option>회사</option><option>카페</option><option>기타</option></select>
     </div>
   </div>
-
   <div class="form-row">
     <div class="form-group"><label class="form-label">장비</label>
       <select id="f-equip">
-        <option ${lastLog&&lastLog.equipment==='Hario Switch'?'selected':''}>Hario Switch</option>
-        <option ${lastLog&&lastLog.equipment==='Hario V60'?'selected':''}>Hario V60</option>
-        <option ${lastLog&&lastLog.equipment==='AeroPress'?'selected':''}>AeroPress</option>
-        <option ${lastLog&&lastLog.equipment==='AeroPress XL'?'selected':''}>AeroPress XL</option>
-        <option ${lastLog&&lastLog.equipment==='Chemex'?'selected':''}>Chemex</option>
+        <option ${last&&last.equipment==='Hario Switch'?'selected':''}>Hario Switch</option>
+        <option ${last&&last.equipment==='Hario V60'?'selected':''}>Hario V60</option>
+        <option ${last&&last.equipment==='AeroPress'?'selected':''}>AeroPress</option>
+        <option ${last&&last.equipment==='AeroPress XL'?'selected':''}>AeroPress XL</option>
+        <option ${last&&last.equipment==='Chemex'?'selected':''}>Chemex</option>
       </select>
     </div>
     <div class="form-group"><label class="form-label">그라인더</label>
       <select id="f-grinder">
-        <option ${lastLog&&lastLog.grinder==='Comandante C40'?'selected':''}>Comandante C40</option>
-        <option ${lastLog&&lastLog.grinder==='Timemore C3 ESP Pro'?'selected':''}>Timemore C3 ESP Pro</option>
-        <option ${lastLog&&lastLog.grinder==='K6'?'selected':''}>K6</option>
+        <option ${last&&last.grinder==='Comandante C40'?'selected':''}>Comandante C40</option>
+        <option ${last&&last.grinder==='Timemore C3 ESP Pro'?'selected':''}>Timemore C3 ESP Pro</option>
+        <option ${last&&last.grinder==='K6'?'selected':''}>K6</option>
       </select>
     </div>
   </div>
-
-  <div class="form-group"><label class="form-label">분쇄도</label><input id="f-grind" placeholder="예: 24클릭" value="${lastLog?lastLog.grind:''}"></div>
-
+  <div class="form-group"><label class="form-label">분쇄도</label><input id="f-grind" placeholder="예: 24클릭" value="${last?last.grind:''}"></div>
   <div class="form-row-3">
-    <div class="form-group"><div class="sublabel">물온도(℃)</div><input type="number" id="f-temp" value="${lastLog?lastLog.temp:91}"></div>
-    <div class="form-group"><div class="sublabel">원두(g)</div><input type="number" id="f-dose" value="${lastLog?lastLog.dose:15}" oninput="calcRatio()"></div>
-    <div class="form-group"><div class="sublabel">물(g)</div><input type="number" id="f-water" value="${lastLog?lastLog.water:240}" oninput="calcRatio()"></div>
+    <div class="form-group"><div class="sublabel">물온도(℃)</div><input type="number" id="f-temp" value="${last?last.temp:91}"></div>
+    <div class="form-group"><div class="sublabel">원두(g)</div><input type="number" id="f-dose" value="${last?last.dose:15}" oninput="calcRatio()"></div>
+    <div class="form-group"><div class="sublabel">물(g)</div><input type="number" id="f-water" value="${last?last.water:240}" oninput="calcRatio()"></div>
   </div>
-  <div style="font-size:12px;color:var(--text2);margin-top:-10px;margin-bottom:14px">추출비율: <strong id="ratio-display">1:${((lastLog?lastLog.water:240)/(lastLog?lastLog.dose:15)).toFixed(1)}</strong></div>
-
+  <div style="font-size:12px;color:var(--text2);margin-top:-10px;margin-bottom:14px">추출비율: <strong id="ratio-display">1:${((last?last.water:240)/(last?last.dose:15)).toFixed(1)}</strong></div>
   <div class="form-row">
-    <div class="form-group"><label class="form-label">프리인퓨전 시간</label><input id="f-pre" placeholder="예: 45초" value="${lastLog?lastLog.preTime:''}"></div>
-    <div class="form-group"><label class="form-label">총 추출시간</label><input id="f-total" placeholder="예: 2분 30초" value="${lastLog?lastLog.totalTime:''}"></div>
+    <div class="form-group"><label class="form-label">프리인퓨전 시간</label><input id="f-pre" placeholder="예: 45초" value="${last?last.preTime:''}"></div>
+    <div class="form-group"><label class="form-label">총 추출시간</label><input id="f-total" placeholder="예: 2분 30초" value="${last?last.totalTime:''}"></div>
   </div>
-
-  <div class="form-group"><label class="form-label">레시피 메모</label><input id="f-recipe" placeholder="특이사항, 방법 등" value="${lastLog?lastLog.recipe:''}"></div>
-
-  <div class="form-group"><label class="form-label">맛 표현</label><textarea id="f-taste" placeholder="전체적인 맛을 자유롭게">${lastLog?'':''}</textarea></div>
-
+  <div class="form-group"><label class="form-label">레시피 메모</label><input id="f-recipe" placeholder="특이사항" value="${last?last.recipe:''}"></div>
+  <div class="form-group"><label class="form-label">맛 표현</label><textarea id="f-taste" placeholder="전체적인 맛을 자유롭게"></textarea></div>
   <div class="form-row">
     <div class="form-group"><div class="sublabel">🌡️ 뜨거울 때</div><input id="f-hot" placeholder="꽃향, 단맛"></div>
     <div class="form-group"><div class="sublabel">☕ 미지근할 때</div><input id="f-warm" placeholder="파인애플"></div>
   </div>
   <div class="form-group"><div class="sublabel">🧊 식었을 때</div><input id="f-cold" placeholder="산미 증가, 깔끔"></div>
-
   <div class="form-group"><label class="form-label">다음 수정점</label><input id="f-next" placeholder="예: 분쇄도 1클릭 굵게"></div>
-
   <div class="form-group">
     <label class="form-label">만족도 <span class="req">*</span></label>
-    <div class="star-group" id="star-group">
-      ${[1,2,3,4,5].map(i=>`<button class="star-btn ${i<=4?'on':''}" data-v="${i}" onclick="setStar(${i})" aria-label="${i}점">★</button>`).join('')}
-    </div>
+    <div class="star-group">${[1,2,3,4,5].map(i=>`<button class="star-btn ${i<=4?'on':''}" data-v="${i}" onclick="setStar(${i},'brew')" aria-label="${i}점">★</button>`).join('')}</div>
   </div>
-
   <button class="btn-primary" onclick="submitBrew()">💾 저장하기</button>`;
 }
-
-function initBrewForm(){ STATE.selectedStar=4 }
 function calcRatio(){
   const d=Number(document.getElementById('f-dose')?.value)||1;
   const w=Number(document.getElementById('f-water')?.value)||0;
   const el=document.getElementById('ratio-display');
   if(el) el.textContent='1:'+(w/d).toFixed(1);
 }
-function setStar(n){
-  STATE.selectedStar=n;
-  document.querySelectorAll('.star-btn').forEach(b=>{b.classList.toggle('on',Number(b.dataset.v)<=n)});
+function setStar(n,type){
+  if(type==='brew') STATE.selectedStar=n;
+  else STATE.selectedCafeStar=n;
+  const cls=type==='brew'?'.star-btn':'.cafe-star-btn';
+  document.querySelectorAll(cls).forEach(b=>{b.classList.toggle('on',Number(b.dataset.v)<=n)});
 }
-function onBeanChange(){} // hook for future autofill
-
-function v(id){ return document.getElementById(id)?.value?.trim()||'' }
-
 function submitBrew(){
   const beanId=v('f-bean');
   if(!beanId){toast('원두를 선택해주세요');return}
-  const log={
-    id:genId('L'), date:v('f-date')||new Date().toISOString().slice(0,10),
-    beanId, place:v('f-place'), equipment:v('f-equip'), dripper:v('f-equip'),
-    grinder:v('f-grinder'), grind:v('f-grind'),
-    temp:Number(v('f-temp'))||0, dose:Number(v('f-dose'))||0, water:Number(v('f-water'))||0,
-    preTime:v('f-pre'), totalTime:v('f-total'), recipe:v('f-recipe'),
-    taste:v('f-taste'), hot:v('f-hot'), warm:v('f-warm'), cold:v('f-cold'),
-    next:v('f-next'), score:STATE.selectedStar, photo:''
-  };
+  const log={id:genId('L'),date:v('f-date')||new Date().toISOString().slice(0,10),beanId,place:v('f-place'),equipment:v('f-equip'),grinder:v('f-grinder'),grind:v('f-grind'),temp:Number(v('f-temp'))||0,dose:Number(v('f-dose'))||0,water:Number(v('f-water'))||0,preTime:v('f-pre'),totalTime:v('f-total'),recipe:v('f-recipe'),taste:v('f-taste'),hot:v('f-hot'),warm:v('f-warm'),cold:v('f-cold'),next:v('f-next'),score:STATE.selectedStar,photo:''};
   saveLog(log);
   showTab('home');
 }
 
 // ─── LOGS ──────────────────────────────────────
 function renderLogs() {
-  const beans = STATE.beans;
-  const equips = [...new Set(STATE.logs.map(l=>l.equipment).filter(Boolean))];
   let logs = STATE.logs;
   if(STATE.filterBean) logs=logs.filter(l=>l.beanId===STATE.filterBean);
   if(STATE.filterEquip) logs=logs.filter(l=>l.equipment===STATE.filterEquip);
+  const equips=[...new Set(STATE.logs.map(l=>l.equipment).filter(Boolean))];
   return `
   <div style="display:flex;gap:8px;margin-bottom:14px">
     <select style="flex:1" onchange="STATE.filterBean=this.value;showTab('logs')">
       <option value="">전체 원두</option>
-      ${beans.map(b=>`<option value="${b.id}" ${STATE.filterBean===b.id?'selected':''}>${b.name}</option>`).join('')}
+      ${STATE.beans.map(b=>`<option value="${b.id}" ${STATE.filterBean===b.id?'selected':''}>${b.name}</option>`).join('')}
     </select>
     <select style="flex:1" onchange="STATE.filterEquip=this.value;showTab('logs')">
       <option value="">전체 장비</option>
@@ -484,16 +509,17 @@ function renderLogs() {
     </select>
   </div>
   <div class="section-label">${logs.length}건의 추출 기록</div>
-  ${logs.length===0?`<div class="empty"><div class="empty-icon">☕</div>기록이 없어요<br><span style="font-size:13px">추출 탭에서 기록해보세요</span></div>`:''}
+  ${logs.length===0?`<div class="empty"><div class="empty-icon">☕</div>기록이 없어요</div>`:''}
   ${logs.map(l=>`
   <div class="log-item">
-    <div class="log-header">
-      <div><div class="log-name">${beanName(l.beanId)}</div><div style="font-size:11px;color:var(--text2);margin-top:1px">${l.place||''}${l.place&&l.equipment?' · ':''}${l.equipment||''}</div></div>
+    <button class="del-btn" onclick="deleteLog('${l.id}')" aria-label="삭제">🗑</button>
+    <div class="log-header" style="padding-right:28px">
+      <div><div class="log-name">${beanName(l.beanId)}</div><div style="font-size:11px;color:var(--text2);margin-top:1px">${l.place||''} ${l.place&&l.equipment?'·':''} ${l.equipment||''}</div></div>
       <div style="text-align:right"><div class="log-date">${l.date}</div><div class="stars" style="margin-top:4px">${starsHtml(l.score)}</div></div>
     </div>
     <div class="log-chips">
       <span class="chip">${l.temp}℃</span>
-      <span class="chip">${l.dose}g : ${l.water}g (1:${l.water&&l.dose?(l.water/l.dose).toFixed(1):'?'})</span>
+      <span class="chip">${l.dose}g:${l.water}g (1:${l.water&&l.dose?(l.water/l.dose).toFixed(1):'?'})</span>
       <span class="chip">${l.grind}</span>
       ${l.totalTime?`<span class="chip">${l.totalTime}</span>`:''}
     </div>
@@ -502,20 +528,124 @@ function renderLogs() {
   </div>`).join('')}`;
 }
 
+// ─── CAFE ──────────────────────────────────────
+function renderCafe() {
+  return `
+  <button class="btn-primary" onclick="showAddCafe()" style="margin-top:0;margin-bottom:16px">🏪 카페 방문 기록 추가</button>
+  <div class="section-label">${STATE.cafeLogs.length}건의 카페 기록</div>
+  ${STATE.cafeLogs.length===0?`<div class="empty"><div class="empty-icon">🏪</div>카페 기록이 없어요<br><span style="font-size:13px">위 버튼으로 기록해보세요</span></div>`:''}
+  ${STATE.cafeLogs.map(c=>`
+  <div class="log-item">
+    <button class="del-btn" onclick="deleteCafeLog('${c.id}')" aria-label="삭제">🗑</button>
+    <div class="log-header" style="padding-right:28px">
+      <div>
+        <div class="log-name">${c.cafe}</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:2px">${c.region} · ${c.menu}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="log-date">${c.date}</div>
+        <div class="stars" style="margin-top:4px">${starsHtml(c.score)}</div>
+      </div>
+    </div>
+    <div class="log-chips">
+      ${c.menuType?`<span class="chip">${c.menuType}</span>`:''}
+      ${c.price?`<span class="chip">${fmt(c.price)}원</span>`:''}
+      ${c.bean?`<span class="chip">🫘 ${c.bean}</span>`:''}
+      ${c.origin?`<span class="chip">${c.origin}</span>`:''}
+      ${c.revisit?`<span class="chip">재방문 ${c.revisit}</span>`:''}
+    </div>
+    ${c.taste?`<div class="log-taste">"${c.taste}"</div>`:''}
+    ${c.memo?`<div style="font-size:12px;color:var(--text2);margin-top:6px">${c.memo}</div>`:''}
+  </div>`).join('')}`;
+}
+
+function showAddCafe() {
+  const todayStr = new Date().toISOString().slice(0,10);
+  document.getElementById('main').innerHTML = `
+  <div class="page-header">
+    <button class="back-btn" onclick="showTab('cafe')">←</button>
+    <div class="page-title">카페 방문 기록</div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">날짜 <span class="req">*</span></label><input type="date" id="cf-date" value="${todayStr}"></div>
+    <div class="form-group"><label class="form-label">지역</label><input id="cf-region" placeholder="서울 성수, 부산 해운대"></div>
+  </div>
+  <div class="form-group"><label class="form-label">카페 상호 <span class="req">*</span></label><input id="cf-cafe" placeholder="예: 블루보틀 성수"></div>
+  <div class="form-group"><label class="form-label">메뉴명 <span class="req">*</span></label><input id="cf-menu" placeholder="예: 싱글오리진 드립, 에스프레소"></div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">메뉴 종류</label>
+      <select id="cf-type">
+        <option value="">선택</option>
+        <option>핸드드립</option><option>에스프레소</option><option>아메리카노</option>
+        <option>라떼</option><option>콜드브루</option><option>플랫화이트</option><option>기타</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">가격(원)</label><input type="number" id="cf-price" placeholder="8000"></div>
+  </div>
+  <div class="section-label" style="margin-top:4px">원두 정보 (알 수 있는 경우)</div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">원두명/블렌드명</label><input id="cf-bean" placeholder="예: 에티오피아 구지"></div>
+    <div class="form-group"><label class="form-label">원산지</label><input id="cf-origin" placeholder="에티오피아"></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">로스터리</label><input id="cf-roastery" placeholder="원두 로스터리"></div>
+    <div class="form-group"><label class="form-label">추출 방식</label>
+      <select id="cf-brew">
+        <option value="">선택</option>
+        <option>핸드드립</option><option>에스프레소</option><option>침지식</option>
+        <option>에어로프레스</option><option>콜드브루</option><option>사이폰</option>
+      </select>
+    </div>
+  </div>
+  <div class="section-label" style="margin-top:4px">평가</div>
+  <div class="form-group"><label class="form-label">맛 표현</label><textarea id="cf-taste" placeholder="맛을 자유롭게 적어주세요&#10;예: 산뜻하고 플로럴, 깔끔한 마무리"></textarea></div>
+  <div class="form-group"><label class="form-label">재방문 의향</label>
+    <select id="cf-revisit">
+      <option value="">선택</option>
+      <option>◎ (꼭 다시)</option><option>○ (기회되면)</option><option>△ (보통)</option><option>✕ (재방문 안함)</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label class="form-label">만족도 <span class="req">*</span></label>
+    <div class="star-group">${[1,2,3,4,5].map(i=>`<button class="star-btn cafe-star-btn ${i<=3?'on':''}" data-v="${i}" onclick="setStar(${i},'cafe')" aria-label="${i}점">★</button>`).join('')}</div>
+  </div>
+  <div class="form-group"><label class="form-label">메모</label><input id="cf-memo" placeholder="분위기, 특이사항 등"></div>
+  <button class="btn-primary" onclick="submitCafe()">🏪 저장하기</button>`;
+  STATE.selectedCafeStar = 3;
+}
+function submitCafe(){
+  const cafe=v('cf-cafe'), menu=v('cf-menu');
+  if(!cafe||!menu){toast('카페명과 메뉴는 필수예요');return}
+  const revisitRaw=v('cf-revisit');
+  const log={id:genId('C'),date:v('cf-date')||new Date().toISOString().slice(0,10),region:v('cf-region'),cafe,menu,menuType:v('cf-type'),price:Number(v('cf-price'))||0,bean:v('cf-bean'),origin:v('cf-origin'),roastery:v('cf-roastery'),brew:v('cf-brew'),taste:v('cf-taste'),revisit:revisitRaw?revisitRaw.split(' ')[0]:'',score:STATE.selectedCafeStar,memo:v('cf-memo')};
+  saveCafeLog(log);
+  showTab('cafe');
+}
+
 // ─── STATS ─────────────────────────────────────
 function renderStats() {
-  const total = STATE.logs.length;
-  const avg = total?( STATE.logs.reduce((a,l)=>a+l.score,0)/total).toFixed(1):0;
-  const bestBean = STATE.beans.map(b=>({b,s:Number(avgScore(b.id)||0)})).sort((a,c)=>c.s-a.s)[0];
-  const equipCount = {};
+  const total=STATE.logs.length;
+  const avg=total?(STATE.logs.reduce((a,l)=>a+l.score,0)/total).toFixed(1):0;
+  const cafeTotal=STATE.cafeLogs.length;
+  const cafeAvg=cafeTotal?(STATE.cafeLogs.reduce((a,c)=>a+c.score,0)/cafeTotal).toFixed(1):0;
+  const bestBean=STATE.beans.map(b=>({b,s:Number(avgScore(b.id)||0)})).sort((a,c)=>c.s-a.s)[0];
+  const equipCount={};
   STATE.logs.forEach(l=>{if(l.equipment)equipCount[l.equipment]=(equipCount[l.equipment]||0)+1});
+  const cafeRegions={};
+  STATE.cafeLogs.forEach(c=>{if(c.region)cafeRegions[c.region]=(cafeRegions[c.region]||0)+1});
   return `
-  <div class="section-label">전체 요약</div>
+  <div class="section-label">홈 추출 요약</div>
   <div class="stats-grid">
     <div class="stat-card"><div class="stat-lbl">총 추출 횟수</div><div class="stat-val">${total}<span class="stat-unit"> 회</span></div></div>
     <div class="stat-card"><div class="stat-lbl">평균 만족도</div><div class="stat-val">${avg}<span class="stat-unit"> / 5</span></div></div>
     <div class="stat-card"><div class="stat-lbl">보유 원두</div><div class="stat-val">${STATE.beans.length}<span class="stat-unit"> 종</span></div></div>
-    <div class="stat-card"><div class="stat-lbl">최애 원두 ★</div><div class="stat-val" style="font-size:13px;line-height:1.4">${bestBean?bestBean.b.name:'—'}</div></div>
+    <div class="stat-card"><div class="stat-lbl">최애 원두</div><div class="stat-val" style="font-size:13px;line-height:1.4">${bestBean&&bestBean.s>0?bestBean.b.name:'—'}</div></div>
+  </div>
+
+  <div class="section-label">카페 방문 요약</div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-lbl">총 방문 횟수</div><div class="stat-val">${cafeTotal}<span class="stat-unit"> 회</span></div></div>
+    <div class="stat-card"><div class="stat-lbl">평균 만족도</div><div class="stat-val">${cafeAvg||'—'}<span class="stat-unit">${cafeAvg?' / 5':''}</span></div></div>
   </div>
 
   <div class="section-label">원두별 평균 만족도</div>
@@ -529,40 +659,40 @@ function renderStats() {
   ${Object.entries(equipCount).sort((a,b)=>b[1]-a[1]).map(([e,n])=>`
   <div class="prog-item">
     <div class="prog-meta"><span>${e}</span><span>${n}회</span></div>
-    <div class="prog-bar"><div class="prog-fill" data-w="${(n/total*100).toFixed(0)}" style="width:0%"></div></div>
-  </div>`).join('')}`;
-}
+    <div class="prog-bar"><div class="prog-fill" data-w="${total?(n/total*100).toFixed(0):0}" style="width:0%"></div></div>
+  </div>`).join('')}
 
+  ${Object.keys(cafeRegions).length>0?`
+  <div class="section-label">자주 간 지역</div>
+  ${Object.entries(cafeRegions).sort((a,b)=>b[1]-a[1]).map(([r,n])=>`
+  <div class="prog-item">
+    <div class="prog-meta"><span>${r}</span><span>${n}회</span></div>
+    <div class="prog-bar"><div class="prog-fill" data-w="${cafeTotal?(n/cafeTotal*100).toFixed(0):0}" style="width:0%"></div></div>
+  </div>`).join('')}`:''}`;
+}
 function animateProgress(){
-  setTimeout(()=>{
-    document.querySelectorAll('.prog-fill').forEach(el=>{
-      el.style.width = (el.dataset.w||0)+'%';
-    });
-  }, 100);
+  setTimeout(()=>{ document.querySelectorAll('.prog-fill').forEach(el=>{ el.style.width=(el.dataset.w||0)+'%'; }); }, 100);
 }
 
 // ─── SETTINGS ──────────────────────────────────
 function renderSettings() {
-  const connected = !!STATE.scriptUrl;
+  const connected=!!STATE.scriptUrl;
   return `
   <div style="font-size:17px;font-weight:600;margin-bottom:16px">설정</div>
-
   <div class="section-label">Google Sheets 연동</div>
-  <div class="conn-status" style="margin-bottom:12px">
+  <div class="conn-status">
     <div class="conn-dot ${connected?'connected':''}"></div>
-    <span>${connected?'연결됨: '+STATE.scriptUrl.slice(0,40)+'...':'연결 안 됨 (로컬 저장 중)'}</span>
+    <span>${connected?'연결됨: '+STATE.scriptUrl.slice(0,38)+'...':'연결 안 됨 (로컬 저장 중)'}</span>
   </div>
-
   <div class="info-box">
     <strong>연동 방법 — Google Apps Script</strong><br><br>
     1. Google Sheets 열기<br>
     2. 확장 프로그램 → Apps Script<br>
     3. 아래 코드 전체 붙여넣기<br>
-    4. 저장 → 배포 → 새 배포<br>
-    5. 유형: 웹 앱 / 액세스: 나<br>
-    6. 배포 URL을 아래에 입력
+    4. YOUR_SHEET_ID를 실제 ID로 교체<br>
+    5. 저장 → 배포 → 새 배포 → 웹 앱<br>
+    6. 생성된 URL을 아래에 입력
   </div>
-
   <div class="form-group">
     <label class="form-label">Apps Script 배포 URL</label>
     <input id="f-url" type="text" placeholder="https://script.google.com/macros/s/..." value="${STATE.scriptUrl}">
@@ -573,78 +703,84 @@ function renderSettings() {
   <div class="code-block">function doPost(e) {
   const data = JSON.parse(e.postData.contents);
   const ss = SpreadsheetApp.openById('YOUR_SHEET_ID');
-  
+
   if (data.action === 'addLog') {
-    const sheet = ss.getSheetByName('BrewLog');
-    const log = data.log;
-    sheet.appendRow([log.id, log.date,
-      log.beanId, log.place, log.equipment,
-      log.grinder, log.grind, log.temp,
-      log.dose, log.water, log.preTime,
-      log.totalTime, log.taste, log.score]);
+    const s = ss.getSheetByName('BrewLog');
+    const l = data.log;
+    s.appendRow([l.id,l.date,l.beanId,l.place,
+      l.equipment,l.grinder,l.grind,l.temp,
+      l.dose,l.water,l.preTime,l.totalTime,
+      l.taste,l.hot,l.warm,l.cold,
+      l.next,l.score]);
   }
-  
   if (data.action === 'addBean') {
-    const sheet = ss.getSheetByName('BeanMaster');
+    const s = ss.getSheetByName('BeanMaster');
     const b = data.bean;
-    sheet.appendRow([b.id, b.roastery,
-      b.name, b.origin, b.process,
-      b.buyDate, b.price, b.notes,
-      b.desc, b.rebuy]);
+    s.appendRow([b.id,b.roastery,b.name,
+      b.origin,b.process,b.buyDate,
+      b.price,b.notes,b.desc,b.rebuy]);
   }
-  
+  if (data.action === 'addCafeLog') {
+    const s = ss.getSheetByName('CafeLog');
+    const c = data.log;
+    s.appendRow([c.id,c.date,c.region,c.cafe,
+      c.menu,c.menuType,c.price,c.bean,
+      c.origin,c.roastery,c.brew,
+      c.taste,c.revisit,c.score,c.memo]);
+  }
   if (data.action === 'getAll') {
-    const bSheet = ss.getSheetByName('BeanMaster');
-    const lSheet = ss.getSheetByName('BrewLog');
-    // 헤더 제외하고 데이터 반환
-    const beans = bSheet.getDataRange()
+    const bs = ss.getSheetByName('BeanMaster');
+    const ls = ss.getSheetByName('BrewLog');
+    const cs = ss.getSheetByName('CafeLog');
+    const beans = bs.getDataRange().getValues()
+      .slice(1).map(r=>({id:r[0],roastery:r[1],
+        name:r[2],origin:r[3],process:r[4],
+        buyDate:r[5],price:r[6],notes:r[7],
+        desc:r[8],rebuy:r[9]}));
+    const logs = ls.getDataRange().getValues()
+      .slice(1).map(r=>({id:r[0],date:r[1],
+        beanId:r[2],place:r[3],equipment:r[4],
+        grinder:r[5],grind:r[6],temp:r[7],
+        dose:r[8],water:r[9],preTime:r[10],
+        totalTime:r[11],taste:r[12],hot:r[13],
+        warm:r[14],cold:r[15],next:r[16],
+        score:r[17]}));
+    const cafeLogs = cs ? cs.getDataRange()
       .getValues().slice(1).map(r=>({
-        id:r[0], roastery:r[1], name:r[2],
-        origin:r[3], process:r[4], buyDate:r[5],
-        price:r[6], notes:r[7], desc:r[8],
-        rebuy:r[9]
-      }));
-    const logs = lSheet.getDataRange()
-      .getValues().slice(1).map(r=>({
-        id:r[0], date:r[1], beanId:r[2],
-        place:r[3], equipment:r[4],
-        grinder:r[5], grind:r[6], temp:r[7],
-        dose:r[8], water:r[9], preTime:r[10],
-        totalTime:r[11], taste:r[12], score:r[13]
-      }));
-    return ContentService
-      .createTextOutput(JSON.stringify({beans,logs}))
+        id:r[0],date:r[1],region:r[2],
+        cafe:r[3],menu:r[4],menuType:r[5],
+        price:r[6],bean:r[7],origin:r[8],
+        roastery:r[9],brew:r[10],taste:r[11],
+        revisit:r[12],score:r[13],memo:r[14]
+      })) : [];
+    return ContentService.createTextOutput(
+      JSON.stringify({beans,logs,cafeLogs}))
       .setMimeType(ContentService.MimeType.JSON);
   }
-  
-  return ContentService
-    .createTextOutput(JSON.stringify({success:true}))
+  return ContentService.createTextOutput(
+    JSON.stringify({success:true}))
     .setMimeType(ContentService.MimeType.JSON);
 }</div>
 
   <div class="section-label" style="margin-top:24px">데이터</div>
   <button class="btn-primary btn-secondary" onclick="if(STATE.scriptUrl)syncFromSheets();else toast('먼저 URL을 입력하세요')">🔄 Sheets에서 동기화</button>
-  <button class="btn-primary btn-secondary" style="margin-top:8px;color:#c0392b" onclick="clearData()">🗑 로컬 데이터 초기화</button>
+  <button class="btn-primary btn-danger" style="margin-top:8px" onclick="clearData()">🗑 로컬 데이터 초기화</button>
 
   <div class="section-label" style="margin-top:24px">앱 정보</div>
-  <div style="font-size:13px;color:var(--text2);line-height:1.8;padding:12px 14px;background:var(--cream);border-radius:var(--radius-sm)">
-    버전 1.0.0 · 커피노트<br>
-    데이터: 로컬 + Google Sheets 연동<br>
-    레코드: 원두 ${STATE.beans.length}종 · 추출 ${STATE.logs.length}회
+  <div style="font-size:13px;color:var(--text2);line-height:1.9;padding:12px 14px;background:var(--cream);border-radius:var(--radius-sm)">
+    버전 1.1.0 · 커피노트<br>
+    원두 ${STATE.beans.length}종 · 추출 ${STATE.logs.length}회 · 카페 ${STATE.cafeLogs.length}회
   </div>`;
 }
-
 function saveUrl(){
-  STATE.scriptUrl = v('f-url');
-  localStorage.setItem('coffee_script_url', STATE.scriptUrl);
-  if(STATE.scriptUrl){ syncFromSheets(); toast('URL 저장됨. 동기화 중...'); }
+  STATE.scriptUrl=v('f-url');
+  localStorage.setItem('coffee_script_url',STATE.scriptUrl);
+  if(STATE.scriptUrl){syncFromSheets();toast('URL 저장됨. 동기화 중...');}
   else toast('URL을 입력하세요');
 }
-
 function clearData(){
   if(!confirm('로컬 데이터를 모두 삭제할까요?')) return;
-  localStorage.removeItem('coffee_beans');
-  localStorage.removeItem('coffee_logs');
+  ['coffee_beans','coffee_logs','coffee_cafe','coffee_script_url'].forEach(k=>localStorage.removeItem(k));
   location.reload();
 }
 
