@@ -360,8 +360,11 @@ function renderBeans() {
   ${STATE.beans.length===0?`<div class="empty"><div class="empty-icon">🫘</div>원두가 없어요<br><span style="font-size:13px">아래 버튼으로 추가해보세요</span></div>`:''}
   ${STATE.beans.map(b=>`
   <div class="card" style="position:relative">
-    <button class="del-btn" onclick="event.stopPropagation();deleteBean('${b.id}')" aria-label="삭제">🗑</button>
-    <div class="card-row" style="align-items:flex-start;padding-right:28px">
+    <div style="position:absolute;top:10px;right:10px;display:flex;gap:4px">
+      <button class="del-btn" style="position:static" onclick="event.stopPropagation();showEditBean('${b.id}')" aria-label="수정">✏️</button>
+      <button class="del-btn" style="position:static" onclick="event.stopPropagation();deleteBean('${b.id}')" aria-label="삭제">🗑</button>
+    </div>
+    <div class="card-row" style="align-items:flex-start;padding-right:64px">
       <div class="bean-avatar">${b.name[0]}</div>
       <div style="flex:1;min-width:0">
         <div class="card-title">${b.name}</div>
@@ -513,8 +516,11 @@ function renderLogs() {
   ${logs.length===0?`<div class="empty"><div class="empty-icon">☕</div>기록이 없어요</div>`:''}
   ${logs.map(l=>`
   <div class="log-item">
-    <button class="del-btn" onclick="deleteLog('${l.id}')" aria-label="삭제">🗑</button>
-    <div class="log-header" style="padding-right:28px">
+    <div style="position:absolute;top:10px;right:10px;display:flex;gap:4px">
+      <button class="del-btn" style="position:static" onclick="showEditLog('${l.id}')" aria-label="수정">✏️</button>
+      <button class="del-btn" style="position:static" onclick="deleteLog('${l.id}')" aria-label="삭제">🗑</button>
+    </div>
+    <div class="log-header" style="padding-right:64px">
       <div><div class="log-name">${beanName(l.beanId)}</div><div style="font-size:11px;color:var(--text2);margin-top:1px">${l.place||''} ${l.place&&l.equipment?'·':''} ${l.equipment||''}</div></div>
       <div style="text-align:right"><div class="log-date">${l.date}</div><div class="stars" style="margin-top:4px">${starsHtml(l.score)}</div></div>
     </div>
@@ -537,8 +543,11 @@ function renderCafe() {
   ${STATE.cafeLogs.length===0?`<div class="empty"><div class="empty-icon">🏪</div>카페 기록이 없어요<br><span style="font-size:13px">위 버튼으로 기록해보세요</span></div>`:''}
   ${STATE.cafeLogs.map(c=>`
   <div class="log-item">
-    <button class="del-btn" onclick="deleteCafeLog('${c.id}')" aria-label="삭제">🗑</button>
-    <div class="log-header" style="padding-right:28px">
+    <div style="position:absolute;top:10px;right:10px;display:flex;gap:4px">
+      <button class="del-btn" style="position:static" onclick="showEditCafe('${c.id}')" aria-label="수정">✏️</button>
+      <button class="del-btn" style="position:static" onclick="deleteCafeLog('${c.id}')" aria-label="삭제">🗑</button>
+    </div>
+    <div class="log-header" style="padding-right:64px">
       <div>
         <div class="log-name">${c.cafe}</div>
         <div style="font-size:11px;color:var(--text2);margin-top:2px">${c.region} · ${c.menu}</div>
@@ -623,6 +632,166 @@ function submitCafe(){
   showTab('cafe');
 }
 
+
+// ─── EDIT BEAN ─────────────────────────────────
+function showEditBean(id) {
+  const b = getBean(id);
+  if(!b) return;
+  const rebuyOptions = ['◎ (꼭 재구매)','○ (기회되면)','△ (보통)','✕ (재구매 안함)'];
+  document.getElementById('main').innerHTML = `
+  <div class="page-header">
+    <button class="back-btn" onclick="showTab('beans')">←</button>
+    <div class="page-title">원두 수정</div>
+  </div>
+  <div class="form-group"><label class="form-label">로스터리 <span class="req">*</span></label><input id="f-roastery" value="${b.roastery}"></div>
+  <div class="form-group"><label class="form-label">원두명 <span class="req">*</span></label><input id="f-bname" value="${b.name}"></div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">산지</label><input id="f-origin" value="${b.origin||''}"></div>
+    <div class="form-group"><label class="form-label">가공방식</label>
+      <select id="f-process"><option value="">선택</option><option ${b.process==='워시드'?'selected':''}>워시드</option><option ${b.process==='내추럴'?'selected':''}>내추럴</option><option ${b.process==='허니'?'selected':''}>허니</option><option ${b.process==='무산소'?'selected':''}>무산소</option><option ${b.process==='와인'?'selected':''}>와인</option></select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">구매일</label><input type="date" id="f-buydate" value="${b.buyDate||''}"></div>
+    <div class="form-group"><label class="form-label">구매가격(원)</label><input type="number" id="f-price" value="${b.price||''}"></div>
+  </div>
+  <div class="form-group"><label class="form-label">향미노트</label><input id="f-notes" value="${b.notes||''}"></div>
+  <div class="form-group"><label class="form-label">원두 설명</label><textarea id="f-desc">${b.desc||''}</textarea></div>
+  <div class="form-group"><label class="form-label">재구매 의향</label>
+    <select id="f-rebuy"><option value="">선택</option>${rebuyOptions.map(o=>`<option ${b.rebuy&&o.startsWith(b.rebuy)?'selected':''}>${o}</option>`).join('')}</select>
+  </div>
+  <button class="btn-primary" onclick="submitEditBean('${id}')">✏️ 수정 저장</button>`;
+}
+async function submitEditBean(id) {
+  const r=v('f-roastery'),n=v('f-bname');
+  if(!r||!n){toast('로스터리와 원두명은 필수예요');return}
+  const rebuyRaw=v('f-rebuy');
+  const updated={id,roastery:r,name:n,origin:v('f-origin'),process:v('f-process'),buyDate:v('f-buydate'),price:Number(v('f-price'))||0,notes:v('f-notes'),desc:v('f-desc'),rebuy:rebuyRaw?rebuyRaw.split(' ')[0]:'',blend:'',variety:'',roastDate:'',memo:''};
+  STATE.beans = STATE.beans.map(b=>b.id===id?updated:b);
+  saveLocal();
+  if(STATE.scriptUrl) await sheetsFetch('updateBean',{data:updated});
+  toast('🫘 원두 수정 완료!');
+  showTab('beans');
+}
+
+// ─── EDIT LOG ──────────────────────────────────
+function showEditLog(id) {
+  const l = STATE.logs.find(x=>x.id===id);
+  if(!l) return;
+  document.getElementById('main').innerHTML = `
+  <div class="page-header">
+    <button class="back-btn" onclick="showTab('logs')">←</button>
+    <div class="page-title">추출 기록 수정</div>
+  </div>
+  <div class="form-group"><label class="form-label">원두</label>
+    <select id="f-bean">
+      ${STATE.beans.map(b=>`<option value="${b.id}" ${l.beanId===b.id?'selected':''}>${b.name} (${b.roastery})</option>`).join('')}
+    </select>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">날짜</label><input type="date" id="f-date" value="${l.date}"></div>
+    <div class="form-group"><label class="form-label">장소</label>
+      <select id="f-place"><option ${l.place==='집'?'selected':''}>집</option><option ${l.place==='회사'?'selected':''}>회사</option><option ${l.place==='카페'?'selected':''}>카페</option><option ${l.place==='기타'?'selected':''}>기타</option></select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">장비</label>
+      <select id="f-equip"><option ${l.equipment==='Hario Switch'?'selected':''}>Hario Switch</option><option ${l.equipment==='Hario V60'?'selected':''}>Hario V60</option><option ${l.equipment==='AeroPress'?'selected':''}>AeroPress</option><option ${l.equipment==='AeroPress XL'?'selected':''}>AeroPress XL</option><option ${l.equipment==='Chemex'?'selected':''}>Chemex</option></select>
+    </div>
+    <div class="form-group"><label class="form-label">그라인더</label>
+      <select id="f-grinder"><option ${l.grinder==='Comandante C40'?'selected':''}>Comandante C40</option><option ${l.grinder==='Timemore C3 ESP Pro'?'selected':''}>Timemore C3 ESP Pro</option><option ${l.grinder==='K6'?'selected':''}>K6</option></select>
+    </div>
+  </div>
+  <div class="form-group"><label class="form-label">분쇄도</label><input id="f-grind" value="${l.grind||''}"></div>
+  <div class="form-row-3">
+    <div class="form-group"><div class="sublabel">물온도(℃)</div><input type="number" id="f-temp" value="${l.temp||''}"></div>
+    <div class="form-group"><div class="sublabel">원두(g)</div><input type="number" id="f-dose" value="${l.dose||''}" oninput="calcRatio()"></div>
+    <div class="form-group"><div class="sublabel">물(g)</div><input type="number" id="f-water" value="${l.water||''}" oninput="calcRatio()"></div>
+  </div>
+  <div style="font-size:12px;color:var(--text2);margin-top:-10px;margin-bottom:14px">추출비율: <strong id="ratio-display">1:${l.water&&l.dose?(l.water/l.dose).toFixed(1):'?'}</strong></div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">프리인퓨전</label><input id="f-pre" value="${l.preTime||''}"></div>
+    <div class="form-group"><label class="form-label">총 추출시간</label><input id="f-total" value="${l.totalTime||''}"></div>
+  </div>
+  <div class="form-group"><label class="form-label">레시피 메모</label><input id="f-recipe" value="${l.recipe||''}"></div>
+  <div class="form-group"><label class="form-label">맛 표현</label><textarea id="f-taste">${l.taste||''}</textarea></div>
+  <div class="form-row">
+    <div class="form-group"><div class="sublabel">🌡️ 뜨거울 때</div><input id="f-hot" value="${l.hot||''}"></div>
+    <div class="form-group"><div class="sublabel">☕ 미지근할 때</div><input id="f-warm" value="${l.warm||''}"></div>
+  </div>
+  <div class="form-group"><div class="sublabel">🧊 식었을 때</div><input id="f-cold" value="${l.cold||''}"></div>
+  <div class="form-group"><label class="form-label">다음 수정점</label><input id="f-next" value="${l.next||''}"></div>
+  <div class="form-group"><label class="form-label">만족도</label>
+    <div class="star-group">${[1,2,3,4,5].map(i=>`<button class="star-btn ${i<=l.score?'on':''}" data-v="${i}" onclick="setStar(${i},'brew')" aria-label="${i}점">★</button>`).join('')}</div>
+  </div>
+  <button class="btn-primary" onclick="submitEditLog('${id}')">✏️ 수정 저장</button>`;
+  STATE.selectedStar = l.score;
+}
+async function submitEditLog(id) {
+  const beanId=v('f-bean');
+  if(!beanId){toast('원두를 선택해주세요');return}
+  const updated={id,date:v('f-date'),beanId,place:v('f-place'),equipment:v('f-equip'),grinder:v('f-grinder'),grind:v('f-grind'),temp:Number(v('f-temp'))||0,dose:Number(v('f-dose'))||0,water:Number(v('f-water'))||0,preTime:v('f-pre'),totalTime:v('f-total'),recipe:v('f-recipe'),taste:v('f-taste'),hot:v('f-hot'),warm:v('f-warm'),cold:v('f-cold'),next:v('f-next'),score:STATE.selectedStar,photo:''};
+  STATE.logs = STATE.logs.map(l=>l.id===id?updated:l);
+  saveLocal();
+  if(STATE.scriptUrl) await sheetsFetch('updateLog',{data:updated});
+  toast('☕ 추출 기록 수정 완료!');
+  showTab('logs');
+}
+
+// ─── EDIT CAFE ─────────────────────────────────
+function showEditCafe(id) {
+  const c = STATE.cafeLogs.find(x=>x.id===id);
+  if(!c) return;
+  document.getElementById('main').innerHTML = `
+  <div class="page-header">
+    <button class="back-btn" onclick="showTab('cafe')">←</button>
+    <div class="page-title">카페 기록 수정</div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">날짜</label><input type="date" id="cf-date" value="${c.date}"></div>
+    <div class="form-group"><label class="form-label">지역</label><input id="cf-region" value="${c.region||''}"></div>
+  </div>
+  <div class="form-group"><label class="form-label">카페 상호 <span class="req">*</span></label><input id="cf-cafe" value="${c.cafe}"></div>
+  <div class="form-group"><label class="form-label">메뉴명 <span class="req">*</span></label><input id="cf-menu" value="${c.menu}"></div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">메뉴 종류</label>
+      <select id="cf-type"><option value="">선택</option><option ${c.menuType==='핸드드립'?'selected':''}>핸드드립</option><option ${c.menuType==='에스프레소'?'selected':''}>에스프레소</option><option ${c.menuType==='아메리카노'?'selected':''}>아메리카노</option><option ${c.menuType==='라떼'?'selected':''}>라떼</option><option ${c.menuType==='콜드브루'?'selected':''}>콜드브루</option><option ${c.menuType==='플랫화이트'?'selected':''}>플랫화이트</option><option ${c.menuType==='기타'?'selected':''}>기타</option></select>
+    </div>
+    <div class="form-group"><label class="form-label">가격(원)</label><input type="number" id="cf-price" value="${c.price||''}"></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">원두명</label><input id="cf-bean" value="${c.bean||''}"></div>
+    <div class="form-group"><label class="form-label">원산지</label><input id="cf-origin" value="${c.origin||''}"></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label class="form-label">로스터리</label><input id="cf-roastery" value="${c.roastery||''}"></div>
+    <div class="form-group"><label class="form-label">추출 방식</label>
+      <select id="cf-brew"><option value="">선택</option><option ${c.brew==='핸드드립'?'selected':''}>핸드드립</option><option ${c.brew==='에스프레소'?'selected':''}>에스프레소</option><option ${c.brew==='침지식'?'selected':''}>침지식</option><option ${c.brew==='에어로프레스'?'selected':''}>에어로프레스</option><option ${c.brew==='콜드브루'?'selected':''}>콜드브루</option><option ${c.brew==='사이폰'?'selected':''}>사이폰</option></select>
+    </div>
+  </div>
+  <div class="form-group"><label class="form-label">맛 표현</label><textarea id="cf-taste">${c.taste||''}</textarea></div>
+  <div class="form-group"><label class="form-label">재방문 의향</label>
+    <select id="cf-revisit"><option value="">선택</option><option ${c.revisit==='◎'?'selected':''}>◎ (꼭 다시)</option><option ${c.revisit==='○'?'selected':''}>○ (기회되면)</option><option ${c.revisit==='△'?'selected':''}>△ (보통)</option><option ${c.revisit==='✕'?'selected':''}>✕ (재방문 안함)</option></select>
+  </div>
+  <div class="form-group"><label class="form-label">만족도</label>
+    <div class="star-group">${[1,2,3,4,5].map(i=>`<button class="star-btn cafe-star-btn ${i<=c.score?'on':''}" data-v="${i}" onclick="setStar(${i},'cafe')" aria-label="${i}점">★</button>`).join('')}</div>
+  </div>
+  <div class="form-group"><label class="form-label">메모</label><input id="cf-memo" value="${c.memo||''}"></div>
+  <button class="btn-primary" onclick="submitEditCafe('${id}')">✏️ 수정 저장</button>`;
+  STATE.selectedCafeStar = c.score;
+}
+async function submitEditCafe(id) {
+  const cafe=v('cf-cafe'),menu=v('cf-menu');
+  if(!cafe||!menu){toast('카페명과 메뉴는 필수예요');return}
+  const revisitRaw=v('cf-revisit');
+  const updated={id,date:v('cf-date'),region:v('cf-region'),cafe,menu,menuType:v('cf-type'),price:Number(v('cf-price'))||0,bean:v('cf-bean'),origin:v('cf-origin'),roastery:v('cf-roastery'),brew:v('cf-brew'),taste:v('cf-taste'),revisit:revisitRaw?revisitRaw.split(' ')[0]:'',score:STATE.selectedCafeStar,memo:v('cf-memo')};
+  STATE.cafeLogs = STATE.cafeLogs.map(c=>c.id===id?updated:c);
+  saveLocal();
+  if(STATE.scriptUrl) await sheetsFetch('updateCafeLog',{data:updated});
+  toast('🏪 카페 기록 수정 완료!');
+  showTab('cafe');
+}
+
 // ─── STATS ─────────────────────────────────────
 function renderStats() {
   const total=STATE.logs.length;
@@ -701,35 +870,11 @@ function renderSettings() {
   <button class="btn-primary" onclick="saveUrl()">URL 저장 & 동기화</button>
 
   <div class="section-label" style="margin-top:24px">Apps Script 코드</div>
-  <div class="code-block">function doPost(e) {
-  const data = JSON.parse(e.postData.contents);
+  <div class="code-block">function doGet(e) {
+  const action = e.parameter.action;
   const ss = SpreadsheetApp.openById('YOUR_SHEET_ID');
 
-  if (data.action === 'addLog') {
-    const s = ss.getSheetByName('BrewLog');
-    const l = data.log;
-    s.appendRow([l.id,l.date,l.beanId,l.place,
-      l.equipment,l.grinder,l.grind,l.temp,
-      l.dose,l.water,l.preTime,l.totalTime,
-      l.taste,l.hot,l.warm,l.cold,
-      l.next,l.score]);
-  }
-  if (data.action === 'addBean') {
-    const s = ss.getSheetByName('BeanMaster');
-    const b = data.bean;
-    s.appendRow([b.id,b.roastery,b.name,
-      b.origin,b.process,b.buyDate,
-      b.price,b.notes,b.desc,b.rebuy]);
-  }
-  if (data.action === 'addCafeLog') {
-    const s = ss.getSheetByName('CafeLog');
-    const c = data.log;
-    s.appendRow([c.id,c.date,c.region,c.cafe,
-      c.menu,c.menuType,c.price,c.bean,
-      c.origin,c.roastery,c.brew,
-      c.taste,c.revisit,c.score,c.memo]);
-  }
-  if (data.action === 'getAll') {
+  if (action === 'getAll') {
     const bs = ss.getSheetByName('BeanMaster');
     const ls = ss.getSheetByName('BrewLog');
     const cs = ss.getSheetByName('CafeLog');
@@ -757,6 +902,77 @@ function renderSettings() {
     return ContentService.createTextOutput(
       JSON.stringify({beans,logs,cafeLogs}))
       .setMimeType(ContentService.MimeType.JSON);
+  }
+  if (action === 'addLog') {
+    const l = JSON.parse(e.parameter.data);
+    ss.getSheetByName('BrewLog').appendRow([
+      l.id,l.date,l.beanId,l.place,l.equipment,
+      l.grinder,l.grind,l.temp,l.dose,l.water,
+      l.preTime,l.totalTime,l.taste,l.hot,
+      l.warm,l.cold,l.next,l.score]);
+  }
+  if (action === 'addBean') {
+    const b = JSON.parse(e.parameter.data);
+    ss.getSheetByName('BeanMaster').appendRow([
+      b.id,b.roastery,b.name,b.origin,b.process,
+      b.buyDate,b.price,b.notes,b.desc,b.rebuy]);
+  }
+  if (action === 'addCafeLog') {
+    const c = JSON.parse(e.parameter.data);
+    ss.getSheetByName('CafeLog').appendRow([
+      c.id,c.date,c.region,c.cafe,c.menu,
+      c.menuType,c.price,c.bean,c.origin,
+      c.roastery,c.brew,c.taste,c.revisit,
+      c.score,c.memo]);
+  }
+  if (action === 'deleteLog') {
+    const id = e.parameter.id;
+    const s = ss.getSheetByName('BrewLog');
+    const vals = s.getDataRange().getValues();
+    for(let i=1;i<vals.length;i++){
+      if(vals[i][0]==id){ s.deleteRow(i+1); break; }
+    }
+  }
+  if (action === 'deleteBean') {
+    const id = e.parameter.id;
+    const s = ss.getSheetByName('BeanMaster');
+    const vals = s.getDataRange().getValues();
+    for(let i=1;i<vals.length;i++){
+      if(vals[i][0]==id){ s.deleteRow(i+1); break; }
+    }
+  }
+  if (action === 'updateLog') {
+    const l = JSON.parse(e.parameter.data);
+    const s = ss.getSheetByName('BrewLog');
+    const vals = s.getDataRange().getValues();
+    for(let i=1;i<vals.length;i++){
+      if(vals[i][0]==l.id){
+        s.getRange(i+1,1,1,18).setValues([[l.id,l.date,l.beanId,l.place,l.equipment,l.grinder,l.grind,l.temp,l.dose,l.water,l.preTime,l.totalTime,l.taste,l.hot,l.warm,l.cold,l.next,l.score]]);
+        break;
+      }
+    }
+  }
+  if (action === 'updateBean') {
+    const b = JSON.parse(e.parameter.data);
+    const s = ss.getSheetByName('BeanMaster');
+    const vals = s.getDataRange().getValues();
+    for(let i=1;i<vals.length;i++){
+      if(vals[i][0]==b.id){
+        s.getRange(i+1,1,1,10).setValues([[b.id,b.roastery,b.name,b.origin,b.process,b.buyDate,b.price,b.notes,b.desc,b.rebuy]]);
+        break;
+      }
+    }
+  }
+  if (action === 'updateCafeLog') {
+    const c = JSON.parse(e.parameter.data);
+    const s = ss.getSheetByName('CafeLog');
+    const vals = s.getDataRange().getValues();
+    for(let i=1;i<vals.length;i++){
+      if(vals[i][0]==c.id){
+        s.getRange(i+1,1,1,15).setValues([[c.id,c.date,c.region,c.cafe,c.menu,c.menuType,c.price,c.bean,c.origin,c.roastery,c.brew,c.taste,c.revisit,c.score,c.memo]]);
+        break;
+      }
+    }
   }
   return ContentService.createTextOutput(
     JSON.stringify({success:true}))
