@@ -240,14 +240,15 @@ function deleteCafeLog(id){
   showTab('cafe');
 }
 
-// ─── Google Sheets API ────────────────────────
+// ─── Google Sheets API (GET 방식) ────────────────────────
 async function sheetsFetch(action, payload={}) {
   if(!STATE.scriptUrl) return null;
   try {
-    const res = await fetch(STATE.scriptUrl, {
-      method:'POST', body: JSON.stringify({action, ...payload}),
-      headers:{'Content-Type':'application/json'}
-    });
+    let url = STATE.scriptUrl + '?action=' + encodeURIComponent(action);
+    if(payload.log) url += '&data=' + encodeURIComponent(JSON.stringify(payload.log));
+    if(payload.bean) url += '&data=' + encodeURIComponent(JSON.stringify(payload.bean));
+    if(payload.id) url += '&id=' + encodeURIComponent(payload.id);
+    const res = await fetch(url);
     return await res.json();
   } catch(e){ return null }
 }
