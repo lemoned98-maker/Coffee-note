@@ -245,9 +245,10 @@ async function sheetsFetch(action, payload={}) {
   if(!STATE.scriptUrl) return null;
   try {
     let url = STATE.scriptUrl + '?action=' + encodeURIComponent(action);
-    if(payload.log) url += '&data=' + encodeURIComponent(JSON.stringify(payload.log));
+    if(payload.log)  url += '&data=' + encodeURIComponent(JSON.stringify(payload.log));
     if(payload.bean) url += '&data=' + encodeURIComponent(JSON.stringify(payload.bean));
-    if(payload.id) url += '&id=' + encodeURIComponent(payload.id);
+    if(payload.data) url += '&data=' + encodeURIComponent(JSON.stringify(payload.data));
+    if(payload.id)   url += '&id='   + encodeURIComponent(payload.id);
     const res = await fetch(url);
     return await res.json();
   } catch(e){ return null }
@@ -872,7 +873,7 @@ function renderSettings() {
   <div class="section-label" style="margin-top:24px">Apps Script 코드</div>
   <div class="code-block">function doGet(e) {
   const action = e.parameter.action;
-  const ss = SpreadsheetApp.openById('YOUR_SHEET_ID');
+  const ss = SpreadsheetApp.openById('1KrNQJL-LihnkMcyEHlBgUGszgIFbgw9TbkQ92gCsODg');
 
   if (action === 'getAll') {
     const bs = ss.getSheetByName('BeanMaster');
